@@ -21,11 +21,17 @@ app.get('/',function(request,response){
 
 io.on('connection',function(socket){
 		console.log("User connected");
+
 		socket.on('disconnect',function(){
 				console.log("User disconnected");
 		});
+
 		socket.on('send-message-to-server',function(message)
 		{
 			io.emit('createmessage',message);
+		});
+
+		socket.on('locationdata',function(message){
+			io.emit('createlocationlink',message);
 		});
 });

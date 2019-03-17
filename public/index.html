@@ -7,20 +7,31 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <title>Home page</title>
   </head>
   <body>
-    <div id="message">
-      <ol id="chat">
-        <li>Admin says hi!</li>
-      </ol>
-      <form id="message-form">
-        <div class="form-group">
-          <input id="inputmessage" type="text" class="form-control" placeholder="Enter some message"></input>
-          <button id="sendbtn" type="button" class="btn btn-secondary">Send</button>
+    <div class="row container-fluid h-100">
+      <div id="sidebar" class="col-4">
+          <h3>People</h3>
+          <br>
+      </div>
+      <div id="chatarea" class="col-8">
+        <ol id="chat">
+          <li>Admin says hi!</li>
+        </ol>
+        <div class="row container-fluid bottom">
+          <div class="col-8">
+            <input id="inputmessage" class="w-100" type="text" placeholder="Enter some message" autofocus autocomplete="off"></input>
+          </div>
+          <div class="col-2">
+            <button id="sendbtn" class="w-100" type="button">Send</button>
+          </div>
+          <div class="col-2">
+            <button id="sendlocation" class="w-100" type="button">Send location</button>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -28,8 +39,27 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/index.js"></script>
-    <script src="/libs/jquery-3.3.1.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/index.js"></script>
+    <script src="libs/jquery-3.3.1.min.js"></script>
+    <script src="libs/moment.js"></script>
+    <script src="libs/mustache.js"></script>
+
+    <!-- Templates -->
+    <script id="newMessage" type="text/template">
+      <li>
+        <b>{{user}}</b><!--:{{timeFromNow}}-->
+        <br>
+        {{content}}
+      </li>
+    </script>
+
+    <script id="locationMessage" type="text/template">
+      <li>
+        <b>{{user}}</b>
+        <br>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query="+{{locationCoords}}>My location</a>
+      </li>
+    </script>
   </body>
 </html>
