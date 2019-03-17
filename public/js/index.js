@@ -1,3 +1,14 @@
+function scrollToBottom()
+{
+	var w = $(window), d = $(document);
+	//console.log(w.scrollTop() + w.height());
+	//console.log(d.height()-$('#chat').children('li:last-child').height());
+	if(w.scrollTop() + w.height() >= d.height()-$('#chat').children('li:last-child').height()-1)
+   {
+      	location.href="#inputmessage";
+   }
+}
+
 var socket=io();
 socket.on('connect',function(){
 		console.log('Server connected');
@@ -7,11 +18,13 @@ socket.on('disconnect',function(){
 });
 socket.on('createmessage',function(message)
 {
+		//scrollToBottom();
 		$('#chat').append(Mustache.render($('#newMessage').html(),{
 			user:message.user,
 			content:message.text,
 			//timeFromNow:moment().fromNow()
 		}));
+		scrollToBottom();
 		$('#inputmessage').val('');
 });
 socket.on('createlocationlink',function(message)
@@ -20,6 +33,7 @@ socket.on('createlocationlink',function(message)
 		user:message.user,
 		locationCoords:message.text
 	}));
+	scrollToBottom();
 	$('#sendlocation').removeAttr('disabled').html('Send location');
 });
 document.getElementById('inputmessage').addEventListener('keydown',function(event){
